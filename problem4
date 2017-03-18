@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+#include <map>
+#include <vector>
+#include <string>
+
+int main()
+{
+	long e, n;
+	cin >> e >> n;
+	map <string, long> mymap;
+	map<string, long> ::iterator m1;
+
+	long matran[1500][1500];
+
+	string u, i;
+	long demmap = 0; // dem so luong dinh
+	// Nhap tung phan tu vao map va dua len matran
+	for (int j = 0; j < e; j++)
+	{
+		long dem3 = 0;
+		cin >> u >> i;
+		// xu ly u
+		for (m1 = mymap.begin(); m1 != mymap.end(); m1++)
+		{
+			if (m1->first == u)
+			{
+				dem3 = mymap[u];
+				break;
+			}
+		}
+		if (dem3 == 0)
+		{
+			demmap = demmap + 1;
+			mymap[u] = demmap;
+			dem3 = demmap;
+		}
+		// xu ly i
+		long dem4 = 0;
+		for (m1 = mymap.begin(); m1 != mymap.end(); m1++)
+		{
+			if (m1->first == i)
+			{
+				dem4 = mymap[i];
+				break;
+			}
+		}
+		if (dem4 == 0)
+		{
+			demmap = demmap + 1;
+			mymap[i] = demmap;
+			dem4 = demmap;
+		}
+		if (dem3 != dem4)
+		{
+			matran[dem3][dem4] = 1;  //dua len ma tran
+		}
+		
+	}
+	//nhap thao tac xu ly
+	long temp;
+	for (long k = 0; k < n; k++)
+	{
+		cin >> temp;
+		if (temp == 1)
+		{
+			cin >> u >> i;
+			if (matran[mymap[u]][mymap[i]] == 1)
+				cout << "TRUE" << endl;
+			else
+				cout << "FALSE" << endl;
+		}
+		else
+		{
+			int z = 0;
+			cin >> u;
+			for (long j = 1; j <= demmap; j++)
+			{
+
+				if (matran[mymap[u]][j] == 1)
+				{
+					z++;
+				}
+			}
+			cout << z << "\n";
+		}
+	}
+	//system("pause");
+	return 0;
+}
